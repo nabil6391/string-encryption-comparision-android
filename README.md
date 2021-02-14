@@ -2,24 +2,34 @@ In this repo, we put together a comparision between base64 encoding, blowfish, A
 
 ## Glossary of some methods:
 The base64 method is not really an encryption but rather it is a technique to convert the string into a medium where other systems are able to recognise it without loss in it. I have added it here just to compare it as a way of masking our strings, which might not be understandable by a very simple user. 
+
 Shifting is a another form of encoding, where we we just shift the values of our characters to a certain extent, so that user see intangible characters. You do have to store the shifting amount, which might be accessible by hacker during reverse engineering.
+
 XOR method is a form of encryption used to encrypt data and is difficult to break by brute force, i.e. generating random encryption keys to match the correct one. It is infact used by many encryption algorithms under the hood. With this logic, by applying the bitwise XOR operator to any character using a given key, a string of text can be encrypted. To decrypt the output, the cipher will be extracted by simply reapplying the XOR function with the key.
+
 The chacha method is only available for Android by default natively from SDK 28 but we still kept it here because it's known to be reasonably fast.
+
 AESCBC is a custom method that used some best practices for encryption as mentioned in here.
 
 ## Testing conditions
 Device Info: Mi A3, Android 11
+
 Note: I did not run the app in a unit test because I wanted to see how encryption happens in a close to real world scenario.
 
 # Test 1:
 Iterations: 10000
+
 Text length: 307
+
 As can be seen from the graph the fastest method for encoding using base64. Shifting does take quite a lot of a lot amount of time. XOR method took a lot of time which I believe is due to not using native methods. The fastest method for encryption is chacha20. AES/CTR/NoPadding is pretty fast. 
+
 As for the decryption graph chacha decryption is even faster than decoding base64.
 
 # Test 2:
 Longer Strings Like a blog article: 6684 
+
 Iterations: 100
+
 Base64 encoding still the fastes to encode. However, for encryption, AES/CTR/NoPadding is a bit faster for encrypting and decrypting. Chacha is 3rd position. 
 
 # Test 3:
